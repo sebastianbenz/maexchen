@@ -49,8 +49,8 @@ In adherence to the previously announced order:
 
 On `ROLL`:
 - server->clients: `PLAYER ROLLS;name`
-- server->client: `ROLLED;dice;token`
-- client->server: `ANNOUNCE;dice';token`
+- server->client: `ROLLED;dice;token` # `ROLLED;6,4;01234-abcd`
+- client->server: `ANNOUNCE;dice;token`
 - server->clients: `ANNOUNCED;name;dice`
 
 When Mia is announced, the round ends and dies are shown. Given Mia was indeed rolled, all player but the announcer lose, otherwise the announcer loses.

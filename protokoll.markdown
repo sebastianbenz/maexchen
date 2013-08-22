@@ -55,13 +55,11 @@ Reihum:
 Bei `ROLL`:
 
 - server->clients: `PLAYER ROLLS;name`
-- server->client: `ROLLED;dice;token`
-- client->server: `ANNOUNCE;dice';token`
+- server->client: `ROLLED;dice;token` # `ROLLED;6,4;01234-abcd`
+- client->server: `ANNOUNCE;dice;token`
 - server->clients: `ANNOUNCED;name;dice`
 
 Falls Mäxchen angesagt wurde, wird sofort aufgedeckt. Wenn tatsächlich Mäxchen gewürfelt wurde, verlieren alle anderen Spieler, ansonsten der ansagende.
-
-- server -> clients: `PLAYER LOST;names;reason` (wobei names eine kommagetrennte liste ist)
 
 Bei `SEE`:
 
