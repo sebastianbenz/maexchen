@@ -68,6 +68,8 @@ class MiaGame
 	stop: -> @stopped = true
 
 	newRound: ->
+		console.log "sleeping"
+		require('sleep').sleep(5)
 		return if @stopped
 		@roundNumber++
 		@currentRound = round = new PlayerList
@@ -98,7 +100,7 @@ class MiaGame
 		if @currentRound.size() > 1
 			@nextTurn()
 		else
-			@cancelRound 'ONLY_ONE_PLAYER'
+			@cancelRound 'ONLY_ONE_PLAYER' 
 	
 	cancelRound: (reason) ->
 		@players.each (player) ->
