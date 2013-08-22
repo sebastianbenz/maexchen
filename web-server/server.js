@@ -73,12 +73,12 @@ function sendSSE(req, res) {
   });
 
 
-  // Sends a SSE every 5 seconds on a single connection.
+  /*
   setInterval(function() {
     constructSSE(res, id, (new Date()).toLocaleTimeString());
   }, 5000);
+  */
 
-  constructSSE(res, id, (new Date()).toLocaleTimeString());
 }
 
 function constructSSE(res, id, data) {

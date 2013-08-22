@@ -69,7 +69,7 @@ class MiaGame
 
 	newRound: ->
 		console.log "sleeping"
-		require('sleep').sleep(5)
+		require('sleep').sleep(2)    
 		return if @stopped
 		@roundNumber++
 		@currentRound = round = new PlayerList
