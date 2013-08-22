@@ -2,6 +2,8 @@ var dgram = require('dgram');
 var http = require('http');
 var sys = require('sys');
 var fs = require('fs');
+var url = require("url");
+var path = require("path");
 
 http.createServer(function(req, res) {
   //debugHeaders(req);
@@ -14,9 +16,31 @@ http.createServer(function(req, res) {
       res.end();
     }
   } else {
-    res.writeHead(200, {'Content-Type': 'text/html'});
-    res.write(fs.readFileSync(__dirname + '/sse-node.html'));
-    res.end();
+    var uri = url.parse(req.url).pathname, filename = path.join(process.cwd(), "public", uri);
+      
+    path.exists(filename, function(exists) {
+      if(!exists) {
+        res.writeHead(404, {"Content-Type": "text/plain"});
+        res.write("404 Not Found\n");
+        res.end();
+        return;
+      }
+   
+      if (fs.statSync(filename).isDirectory()) filename += '/index.html';
+   
+      fs.readFile(filename, "binary", function(err, file) {
+        if(err) {        
+          res.writeHead(500, {"Content-Type": "text/plain"});
+          res.write(err + "\n");
+          res.end();
+          return;
+        }
+   
+        res.writeHead(200);
+        res.write(file, "binary");
+        res.end();
+      });
+    });
   }
 }).listen(8000);
 
@@ -34,6 +58,8 @@ function sendSSE(req, res) {
     server.close();
   });
 
+  var id = (new Date()).toLocaleTimeString();
+
   server.on("message", function (msg, rinfo) {
     console.log("server got: " + msg + " from " +
       rinfo.address + ":" + rinfo.port);
@@ -46,7 +72,6 @@ function sendSSE(req, res) {
   server.send(message, 0, message.length, 9000, "localhost", function(err, bytes) {
   });
 
-  var id = (new Date()).toLocaleTimeString();
 
   // Sends a SSE every 5 seconds on a single connection.
   setInterval(function() {
