@@ -18,7 +18,7 @@ class Messenger
 
   def send(message) 
     puts "sending: #{message}"
-    @client.send(message, 0, '127.0.0.1', 9000)
+    @client.send(message, 0, 'localhost', 9000)
   end
 
 end
