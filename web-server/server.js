@@ -72,13 +72,6 @@ function sendSSE(req, res) {
   server.send(message, 0, message.length, 9000, "localhost", function(err, bytes) {
   });
 
-
-  /*
-  setInterval(function() {
-    constructSSE(res, id, (new Date()).toLocaleTimeString());
-  }, 5000);
-  */
-
 }
 
 function constructSSE(res, id, data) {
